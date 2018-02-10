@@ -48,3 +48,6 @@ class ClassificationManager:
 
     def status(self):
         return self.classifiers
+
+    def learn(self, learnData):
+        return '{}'

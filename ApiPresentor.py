@@ -1,4 +1,5 @@
 from classificationManager import ClassificationManager
+import json
 
 class ApiPresentor:
     manager = ClassificationManager()
@@ -23,3 +24,8 @@ pre {
             result = result + '<tr><td><b>{}</b></td><td><pre>{}</pre></td><tr>\n'.format(key, value)
         result = result + '</table></body></html>'
         return result
+
+    def learn(self, requestJson):
+        learnData = json.loads(requestJson)
+        result = self.manager.learn(learnData)
+        return json.dumps(result)
