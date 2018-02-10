@@ -17,9 +17,10 @@ def clearModels():
     pass
 
 @app.route('/learn', methods=['POST'])
-def learn(json):
-    print(json)
+def learn():
     print(request.data)
+    print(request)
+    return request.data
 
 @app.route('/fit')
 def fit(json):
