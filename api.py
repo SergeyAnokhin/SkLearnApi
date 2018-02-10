@@ -1,23 +1,25 @@
 from flask import Flask
+from flask import request
 from ApiPresentor import ApiPresentor
 import datetime
 
 app = Flask(__name__)
 presentor = ApiPresentor()
-print('start: ' + datetime.datetime.now())
+print('start: {}'.format(datetime.datetime.now()))
 presentor.Init()
 
 @app.route('/')
 def index():
-    return 'SkLearn API. Status : '
+    return presentor.status()
 
 @app.route('/clearmodels')
 def clearModels():
     pass
 
-@app.route('/learn')
+@app.route('/learn', methods=['POST'])
 def learn(json):
-    pass
+    print(json)
+    print(request.data)
 
 @app.route('/fit')
 def fit(json):

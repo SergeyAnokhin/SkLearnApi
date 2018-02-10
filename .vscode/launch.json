@@ -83,7 +83,8 @@
             "program": "${workspaceFolder}/run.py",
             "cwd": "${workspaceFolder}",
             "env": {
-                "FLASK_APP": "${workspaceFolder}/api.py"
+                "FLASK_APP": "${workspaceFolder}/api.py",
+                "FLASK_DEBUG": "1"
             },
             "args": [
                 "run",
