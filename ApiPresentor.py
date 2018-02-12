@@ -25,7 +25,20 @@ pre {
         result = result + '</table></body></html>'
         return result
 
-    def learn(self, requestJson):
+    def fit(self, requestJson):
+        print("#### FIT #####")
+        print('Request : {}'.format(requestJson))
         learnData = json.loads(requestJson)
-        result = self.manager.learn(learnData)
+        result = self.manager.fit(learnData)
+        print('Result : {}'.format(result))
+        print("#### /FIT ####")
+        return json.dumps(result)
+
+    def predict(self, requestJson):
+        print("#### PREDICT #####")
+        print('Request : {}'.format(requestJson))
+        learnData = json.loads(requestJson)
+        result = self.manager.predict(learnData)
+        print('Result : {}'.format(result))
+        print("#### /PREDICT ####")
         return json.dumps(result)

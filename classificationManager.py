@@ -1,4 +1,5 @@
 import numpy as np
+import timeit
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_moons, make_circles, make_classification
@@ -49,5 +50,32 @@ class ClassificationManager:
     def status(self):
         return self.classifiers
 
-    def learn(self, learnData):
+    def fit(self, learnData):
+        result = ClassificationPrediction()
+        for key in self.classifiers:
+            clf = self.classifiers[key]
+            d_X = []
+            d_Y = []
+            for d in learnData:
+                d_X.append(d['Image'])
+                d_Y.append(d['ClassName'])
+            X = np.asarray(d_X)
+            Y = np.asarray(d_Y)
+            start_time = timeit.default_timer()
+            clf.fit(X, Y)
+            result.Seconds = timeit.default_timer() - start_time
+            if hasattr(clf, 'loss_'):
+                result.Probability = clf.loss_
+
+        return result
+
+    def predict(self, learnData):
         return '{}'
+
+
+class ClassificationPrediction:
+    Brain = {}
+    Class = None
+    Probability = 0
+    Probabilities = {}
+    Seconds = 0

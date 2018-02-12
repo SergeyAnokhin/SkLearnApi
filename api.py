@@ -1,10 +1,12 @@
 from flask import Flask
 from flask import request
 from ApiPresentor import ApiPresentor
+from commonHelper import CommonHelper
 import datetime
 
 app = Flask(__name__)
 presentor = ApiPresentor()
+cHelper = CommonHelper()
 print('start: {}'.format(datetime.datetime.now()))
 presentor.Init()
 
@@ -12,26 +14,18 @@ presentor.Init()
 def index():
     return presentor.status()
 
-@app.route('/clearmodels')
-def clearModels():
-    pass
+@app.route('/Hello')
+def hello():
+    return 'OK'
 
-@app.route('/learn', methods=['POST'])
-def learn():
-    return presentor.learn(request.data)
+@app.route('/fit', methods=['POST'])
+def fit():
+    return presentor.fit(request.data)
 
-@app.route('/fit')
-def fit(json):
-    pass
-
-@app.route('/commit')
-def commit(json):
-    pass
-
-@app.route('/rollback')
-def rollback(json):
-    pass
-
-@app.route('/predict')
+@app.route('/predict', methods=['POST'])
 def predict(json):
-    pass
+    return presentor.predict(request.data)
+
+@app.route('/fitTest', methods=['GET'])
+def fitTest():
+    return presentor.fit(cHelper.ReadFile('fitTest.json'))
