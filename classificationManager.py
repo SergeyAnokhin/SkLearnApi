@@ -51,8 +51,10 @@ class ClassificationManager:
         return self.classifiers
 
     def fit(self, learnData):
-        result = ClassificationPrediction()
+        results = []
         for key in self.classifiers:
+            result = ClassificationPrediction()
+            print('Fit : {}'.format(key))
             clf = self.classifiers[key]
             d_X = []
             d_Y = []
@@ -66,12 +68,29 @@ class ClassificationManager:
             result.Seconds = timeit.default_timer() - start_time
             if hasattr(clf, 'loss_'):
                 result.Probability = clf.loss_
-
-        return result
+            results.append(result.__dict__)
+        return results
 
     def predict(self, learnData):
-        return '{}'
-
+        results = []
+        for key in self.classifiers:
+            result = ClassificationPrediction()
+            print('Predict : {}'.format(key))
+            clf = self.classifiers[key]
+            d_X = []
+            #d_Y = []
+            for d in learnData:
+                d_X.append(d['Image'])
+                #d_Y.append(d['ClassName'])
+            X = np.asarray(d_X)
+            #Y = np.asarray(d_Y)
+            start_time = timeit.default_timer()
+            Y = clf.predict(X)
+            print(Y)
+            result.Seconds = timeit.default_timer() - start_time
+            result.Class = Y[0]
+            results.append(result.__dict__)
+        return results
 
 class ClassificationPrediction:
     Brain = {}

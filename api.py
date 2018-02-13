@@ -23,7 +23,7 @@ def fit():
     return presentor.fit(request.data)
 
 @app.route('/predict', methods=['POST'])
-def predict(json):
+def predict():
     return presentor.predict(request.data)
 
 @app.route('/fitTest', methods=['GET'])
