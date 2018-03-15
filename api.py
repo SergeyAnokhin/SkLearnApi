@@ -4,7 +4,12 @@ from ApiPresentor import ApiPresentor
 from commonHelper import CommonHelper
 import datetime
 
+# run locally :
+# export FLASK_APP=api.py
+# flask run
+
 app = Flask(__name__)
+# app.run(host='127.0.0.1', port=99)
 presentor = ApiPresentor()
 cHelper = CommonHelper()
 print('start: {}'.format(datetime.datetime.now()))
