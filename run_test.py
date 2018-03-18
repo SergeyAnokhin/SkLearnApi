@@ -3,12 +3,16 @@ from ApiPresentor import ApiPresentor
 presentor = ApiPresentor()
 
 ### INIT ###
-presentor.Init(['Event1', 'Event2', 'Event3'])
+presentor.configure({
+    'all_events': ['Event1', 'Event2', 'Event3'],
+    'events_window': 600,
+    'epoch_step': 30
+})
 
 ### TRAIN ###
 presentor.addTrainData({
     'header': {
-        'datetime': '2018-03-18T15:16:00', 'during': 600,
+        'datetime': '2018-03-18T15:16:00', 'duration': 600,
         'className': 'class1', 'comment': ''
     },
     'events': [
@@ -21,7 +25,7 @@ presentor.addTrainData({
 })
 presentor.addTrainData({
     'header': {
-        'datetime': '2018-04-18T15:16:00', 'during': 600,
+        'datetime': '2018-04-18T15:16:00', 'duration': 600,
         'className': 'class2', 'comment': ''
     },
     'events': [
@@ -34,7 +38,7 @@ presentor.addTrainData({
 })
 presentor.addTrainData({
     'header': {
-        'datetime': '2018-05-18T15:16:00', 'during': 600,
+        'datetime': '2018-05-18T15:16:00', 'duration': 600,
         'className': 'class3', 'comment': ''
     },
     'events': [
@@ -50,7 +54,7 @@ presentor.fit();
 ### PREDICT ###
 prediction = presentor.predict({
     'header': {
-        'datetime': '2018-05-18T15:16:00', 'during': 600,
+        'datetime': '2018-05-18T15:16:00', 'duration': 600,
         # 'className': 'class3', 'comment': ''
     },
     'events': [

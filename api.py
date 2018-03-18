@@ -23,6 +23,10 @@ def index():
 def hello():
     return 'OK'
 
+@app.route('/configure', methods=['POST'])
+def fit():
+    return presentor.configure(request.data)
+
 @app.route('/fit', methods=['POST'])
 def fit():
     return presentor.fit(request.data)

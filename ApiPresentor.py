@@ -6,11 +6,14 @@ class ApiPresentor:
     manager = ClassificationManager()
     statusManager = StatusManager()
 
-    def Init(self, all_events):
-        self.manager.Init(all_events)
+    def configure(self, config):
+        self.manager.configure(config)
 
     def addTrainData(self, data):
         self.manager.addTrainData(data)
+
+    def fit(self):
+        self.manager.fit()
 
 ### api status
     def status(self):
