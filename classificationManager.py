@@ -43,9 +43,16 @@ class ClassificationManager:
         #     AdaBoostClassifier(),
         #"QDA":                  QuadraticDiscriminantAnalysis(),
     }
+    all_events = []
+    X_train = []
+    Y_train = []
 
-    def Init(self):
-        pass
+    def Init(self, all_events):
+        self.all_events = all_events
+
+    def addTrainData(self, data):
+        className = data['header']['className']
+        return
 
     def status(self):
         return self.classifiers
