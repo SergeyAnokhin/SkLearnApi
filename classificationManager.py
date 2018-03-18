@@ -89,6 +89,7 @@ class ClassificationManager:
     def addTrainData(self, data):
         className = data['header']['className']
         events = data['events']
+        print(f'# Add train data: class="{className}"')
         image = self.createImage(events)
         self.X_train.append(image)
         self.Y_train.append(className)
