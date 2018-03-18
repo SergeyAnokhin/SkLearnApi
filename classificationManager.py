@@ -50,7 +50,7 @@ class ClassificationManager:
     def status(self):
         return self.classifiers
 
-    def fit(self, learnData):
+    def fitBinary(self, learnData):
         results = []
         for key in self.classifiers:
             result = ClassificationPrediction()
@@ -71,7 +71,7 @@ class ClassificationManager:
             results.append(result.__dict__)
         return results
 
-    def predict(self, learnData):
+    def predictBinary(self, learnData):
         results = []
         for key in self.classifiers:
             result = ClassificationPrediction()
