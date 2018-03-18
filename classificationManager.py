@@ -62,9 +62,19 @@ class ClassificationManager:
         print('All events: ', self.all_events)
         print(f"EventsWindow : {self.events_window}; EpochStep: {self.epoch_step}")
 
-    def addTrainData(self, data):
-        className = data['header']['className']
+    def predict(self, data):
+        results = []
         events = data['events']
+        image = self.createImage(events)
+        X = np.asarray(image).reshape(1, -1)
+        for key in self.classifiers:
+            print('Predict : ### {} ###'.format(key))
+            clf = self.classifiers[key]
+            Y = clf.predict(X)
+            print(Y[0])
+            results.append(Y[0])
+        
+    def createImage(self, events):
         zeros = np.zeros((self.getLines(), self.getColumns()))
         for pair in events:
             sec = pair[0]
@@ -73,8 +83,14 @@ class ClassificationManager:
             index = np.where(self.all_events == event)[0][0]
             print(f"fill image : {sec:>3} => {epoch:>2}; {event:>20} => {index:>2}")
             zeros[epoch, index] += 1
-        print(zeros)
-        self.X_train.append(zeros)
+        # print(zeros)
+        return zeros
+
+    def addTrainData(self, data):
+        className = data['header']['className']
+        events = data['events']
+        image = self.createImage(events)
+        self.X_train.append(image)
         self.Y_train.append(className)
         return
 
@@ -82,23 +98,17 @@ class ClassificationManager:
         results = []
         for key in self.classifiers:
             result = ClassificationPrediction()
-            print('Fit : {}'.format(key))
+            print('Fit : ### {} ###'.format(key))
             clf = self.classifiers[key]
-            # d_X = []
-            # d_Y = []
-            # for d in learnData:
-            #     d_X.append(d['Image'])
-            #     d_Y.append(d['ClassName'])
-            X = np.asarray(self.X_train)
+            X = np.asarray(self.X_train).reshape(len(self.X_train), self.getLines() * self.getColumns())
             Y = np.asarray(self.Y_train)
             start_time = timeit.default_timer()
-            print('Send to fit: ', len(X))
-            print('Send to fit: ', X.reshape(len(X), self.getLines() * self.getColumns()))
             clf.fit(X, Y)
             result.Seconds = timeit.default_timer() - start_time
             if hasattr(clf, 'loss_'):
                 result.Probability = clf.loss_
             results.append(result.__dict__)
+            print(result.__dict__)
         return results
 
     def status(self):

@@ -15,6 +15,9 @@ class ApiPresentor:
     def fit(self):
         self.manager.fit()
 
+    def predict(self, data):
+        self.manager.predict(data)
+
 ### api status
     def status(self):
         print("#### STATUS #####")
