@@ -6,6 +6,9 @@ class ApiPresentor:
     manager = ClassificationManager()
     statusManager = StatusManager()
 
+    def Init(self):
+        pass
+
     def configure(self, config):
         self.manager.configure(config)
 

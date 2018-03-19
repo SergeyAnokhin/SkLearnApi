@@ -24,17 +24,13 @@ def hello():
     return 'OK'
 
 @app.route('/configure', methods=['POST'])
-def fit():
+def configure():
     return presentor.configure(request.data)
 
 @app.route('/fit', methods=['POST'])
 def fit():
-    return presentor.fit(request.data)
+    return presentor.fit()
 
 @app.route('/predict', methods=['POST'])
 def predict():
     return presentor.predict(request.data)
-
-@app.route('/fitTest', methods=['GET'])
-def fitTest():
-    return presentor.fit(cHelper.ReadFile('fitTest.json'))
